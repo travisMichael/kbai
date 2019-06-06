@@ -1,4 +1,5 @@
 import numpy as np
+# from PIL import Image
 
 # returns a value from 0-1. 0 = no similarity, 1 = exactly similar
 def calculate_image_similarity(image_1, image_2):
@@ -15,21 +16,9 @@ def calculate_image_similarity(image_1, image_2):
     return (total - number_of_pixels_different) / total
 
 
-def copy_sequence(list):
-    return list
-
-
-def calculate_current_image(imageMap, state):
-    print("calculating state")
-    return imageMap.get(state.originalImage)
-
 
 # return the similarity between C and D after C has been calculated by the operators
-def apply_and_check(imageMap, operationSequence):
-    C = imageMap.get('C')
-    convertedImage = C
-    for operation in operationSequence:
-        convertedImage = operation.operator(convertedImage)
+def apply_and_check(convertedImage, imageMap):
 
     similarity = 0.0
     bestImageChoice = -1

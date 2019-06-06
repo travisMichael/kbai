@@ -13,11 +13,33 @@
 # Install Pillow and uncomment this line to access image processing.
 #from PIL import Image
 from PIL import Image
-from PIL import ImageOps
+# from PIL import ImageOps
 import numpy as np
-from utility import calculate_current_image, apply_and_check
 from State import State
 import rules as rules
+import Operators as op
+from utility import apply_and_check
+
+
+class Operation:
+
+    def __init__(self):
+        self.noOp = 0
+        self.horizontalReflection = 1
+        self.verticalReflection = 2
+
+    def apply(self, image, operators):
+        for operation in operators:
+            if operation == self.horizontalReflection:
+                image = image.transpose(Image.FLIP_LEFT_RIGHT)
+            elif operation == self.verticalReflection:
+                image = image.transpose(Image.FLIP_TOP_BOTTOM)
+
+        return image
+
+
+OPERATION = op.Operation()
+
 
 class Agent:
     # The default constructor for your Agent. Make sure to execute any
@@ -39,6 +61,9 @@ class Agent:
     # Returning your answer as a string may cause your program to crash.
     def Solve(self,problem):
 
+        # if 'Basic Problem B-' not in problem.name:
+        #     return -1
+
         imageMap = {}
 
         imageMap['A'] = Image.open(problem.figures['A'].visualFilename).convert("L")
@@ -57,27 +82,38 @@ class Agent:
         # used so that the same state is not calculated twice
         stateMap = {}
 
-        # calculate state
-        mostSimilarSoFar = 0.0
-        bestAnswerSoFar = '1'
+        # myImage = imageMap.get('A')
+        # myImage2 = imageMap.get('B')
+        # rotated_image = myImage.transpose(Image.FLIP_LEFT_RIGHT)
+        # myImage.save("A.png")
+        # myImage2.save("B.png")
+
         iterations = 0
         while True:
             iterations += 1
             # todo: Try to make this more efficient
             # pop state from queue, aka stack
-            currentState = stateQueue.pop()
-            currentImage = calculate_current_image(imageMap, currentState)
-            # find sequence of operations that match B
-            operationsToApply = rules.calculate(currentImage, targetImage=imageMap.get("B"))
+            if len(stateQueue) == 0:
+                break
+            currentState = stateQueue.pop(0)
 
-            if len(operationsToApply) == 1 and operationsToApply[0].type == "NoOp":
+            currentImage = OPERATION.apply(imageMap.get(currentState.originalImage), currentState.operationSequence)
+            # find sequence of operations that match B
+            operationsToApply = rules.calculate(currentImage, targetImage=imageMap.get("B"), operationSequence=currentState.operationSequence)
+
+            if len(operationsToApply) == 1 and operationsToApply[0] == OPERATION.noOp:
                 # apply that sequence to C and check if there is a match
-                actualSimilarity, bestOption = apply_and_check(imageMap, currentState.operationSequence)
-                if actualSimilarity > 0.99:
+                c = OPERATION.apply(imageMap.get('C'), currentState.operationSequence)
+                actualSimilarity, bestOption = apply_and_check(c, imageMap)
+                if actualSimilarity > 0.97:
+                    currentImage.save("c.png")
+                    print("found a possible solution", bestOption)
                     return bestOption
             else:
-                for i in range(len(operationsToApply)):
-                    newState = State(image=currentState.originalImage, sequence=[])
+                for operation in (operationsToApply):
+                    newSequence = currentState.operationSequence[:]
+                    newSequence.append(operation)
+                    newState = State(image=currentState.originalImage, sequence=newSequence)
 
                     stateQueue.append(newState)
 

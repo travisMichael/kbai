@@ -1,28 +1,19 @@
+from PIL import Image
 
-def horizontal_reflection(image):
-    return image
+# FLIP_TOP_BOTTOM, ROTATE_90, ROTATE_180, or ROTATE_270
 
-
-def vertical_reflection(image):
-    return image
-
-
-class NoOp:
+class Operation:
 
     def __init__(self):
-        self.type = "NoOp"
-        self.apply = None
+        self.noOp = 0
+        self.horizontalReflection = 1
+        self.verticalReflection = 2
 
+    def apply(self, image, operators):
+        for operation in operators:
+            if operation == self.horizontalReflection:
+                image = image.transpose(Image.FLIP_LEFT_RIGHT)
+            elif operation == self.verticalReflection:
+                image = image.transpose(Image.FLIP_TOP_BOTTOM)
 
-class HorizontalReflection:
-
-    def __init__(self):
-        self.type = "Reflection"
-        self.apply = horizontal_reflection
-
-
-class VerticalReflection:
-
-    def __init__(self):
-        self.type = "Reflection"
-        self.apply = vertical_reflection
+        return image
