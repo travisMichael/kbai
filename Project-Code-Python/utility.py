@@ -16,7 +16,6 @@ def calculate_image_similarity(image_1, image_2):
     return (total - number_of_pixels_different) / total
 
 
-
 # return the similarity between C and D after C has been calculated by the operators
 def apply_and_check(convertedImage, imageMap):
 
@@ -29,3 +28,22 @@ def apply_and_check(convertedImage, imageMap):
             bestImageChoice = i+1
 
     return similarity, bestImageChoice
+
+
+def find_answer_with_same_similarity(convertedImage, imageMap, similarity_to_target):
+
+    # similarity = 0.0
+    # bestImageChoice = -1
+    for i in range(6):
+        temp_similarity = calculate_image_similarity(convertedImage, imageMap.get(str(i+1)))
+        if is_close(temp_similarity, similarity_to_target):
+            return i + 1
+
+    return None
+
+
+def is_close(value_1, value_2):
+    if value_1 + 0.001 <  value_2 and value_1 - 0.001 < value_2:
+        return True
+    return False
+

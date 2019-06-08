@@ -15,30 +15,9 @@
 from PIL import Image
 # from PIL import ImageOps
 import numpy as np
-from State import State
-import rules as rules
-import Operators as op
-from utility import apply_and_check
-
-
-class Operation:
-
-    def __init__(self):
-        self.noOp = 0
-        self.horizontalReflection = 1
-        self.verticalReflection = 2
-
-    def apply(self, image, operators):
-        for operation in operators:
-            if operation == self.horizontalReflection:
-                image = image.transpose(Image.FLIP_LEFT_RIGHT)
-            elif operation == self.verticalReflection:
-                image = image.transpose(Image.FLIP_TOP_BOTTOM)
-
-        return image
-
-
-OPERATION = op.Operation()
+import Reflection
+import NoOp
+import ShapeFiller
 
 
 class Agent:
@@ -61,8 +40,8 @@ class Agent:
     # Returning your answer as a string may cause your program to crash.
     def Solve(self,problem):
 
-        # if 'Basic Problem B-' not in problem.name:
-        #     return -1
+        if 'Basic Problem B-' not in problem.name:
+            return -1
 
         imageMap = {}
 
@@ -76,51 +55,42 @@ class Agent:
         imageMap['5'] = Image.open(problem.figures['5'].visualFilename).convert("L")
         imageMap['6'] = Image.open(problem.figures['6'].visualFilename).convert("L")
 
-        stateQueue = []
-        stateQueue.append(State(image='A'))
-
-        # used so that the same state is not calculated twice
-        stateMap = {}
-
-        # myImage = imageMap.get('A')
-        # myImage2 = imageMap.get('B')
-        # rotated_image = myImage.transpose(Image.FLIP_LEFT_RIGHT)
-        # myImage.save("A.png")
-        # myImage2.save("B.png")
-
-        iterations = 0
-        while True:
-            iterations += 1
-            # todo: Try to make this more efficient
-            # pop state from queue, aka stack
-            if len(stateQueue) == 0:
-                break
-            currentState = stateQueue.pop(0)
-
-            currentImage = OPERATION.apply(imageMap.get(currentState.originalImage), currentState.operationSequence)
-            # find sequence of operations that match B
-            operationsToApply = rules.calculate(currentImage, targetImage=imageMap.get("B"), operationSequence=currentState.operationSequence)
-
-            if len(operationsToApply) == 1 and operationsToApply[0] == OPERATION.noOp:
-                # apply that sequence to C and check if there is a match
-                c = OPERATION.apply(imageMap.get('C'), currentState.operationSequence)
-                actualSimilarity, bestOption = apply_and_check(c, imageMap)
-                if actualSimilarity > 0.97:
-                    currentImage.save("c.png")
-                    print("found a possible solution", bestOption)
-                    return bestOption
-            else:
-                for operation in (operationsToApply):
-                    newSequence = currentState.operationSequence[:]
-                    newSequence.append(operation)
-                    newState = State(image=currentState.originalImage, sequence=newSequence)
-
-                    stateQueue.append(newState)
+        shape_filler_answer = ShapeFiller.solve(imageMap, 'B', 'C')
+        if shape_filler_answer is not -1:
+            print("best answer - ", str(shape_filler_answer))
+            return shape_filler_answer
 
 
-            # if not, repeat until time expires
-            if iterations > 20:
-                print("failed to solve the problem in less than 20 iterations")
-                return -1
+        no_op_answer = NoOp.solve(imageMap, 'B', 'C')
+        if no_op_answer is not -1:
+            print("best answer - ", str(no_op_answer))
+            return no_op_answer
 
+        no_op_answer = NoOp.solve(imageMap, 'C', 'B')
+        if no_op_answer is not -1:
+            print("best answer - ", str(no_op_answer))
+            return no_op_answer
+
+        reflection_horizontal_answer = Reflection.solve_horizontal(imageMap, 'B', 'C')
+        if reflection_horizontal_answer is not -1:
+            print("best answer - ", str(reflection_horizontal_answer))
+            return reflection_horizontal_answer
+
+        reflection_horizontal_answer = Reflection.solve_horizontal(imageMap, 'C', 'B')
+        if reflection_horizontal_answer is not -1:
+            print("best answer - ", str(reflection_horizontal_answer))
+            return reflection_horizontal_answer
+
+        reflection_vertical_answer = Reflection.solve_vertical(imageMap, 'B', 'C')
+        if reflection_vertical_answer is not -1:
+            print("best answer - ", str(reflection_vertical_answer))
+            return reflection_horizontal_answer
+
+        reflection_vertical_answer = Reflection.solve_vertical(imageMap, 'C', 'B')
+        if reflection_vertical_answer is not -1:
+            print("best answer - ", str(reflection_vertical_answer))
+            return reflection_horizontal_answer
+
+
+        print("did not find a solution")
         return -1

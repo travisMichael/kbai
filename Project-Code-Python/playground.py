@@ -1,3 +1,7 @@
+import numpy as np
+
+
+value = np.exp(-.00001)
 myList = []
 myList.append('Goodbye')
 myList.append('Hello')
