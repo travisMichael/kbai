@@ -19,6 +19,7 @@ import Reflection
 import NoOp
 import ShapeFiller
 import SubtractAndAdd
+import Rotation
 
 
 class Agent:
@@ -41,8 +42,8 @@ class Agent:
     # Returning your answer as a string may cause your program to crash.
     def Solve(self,problem):
 
-        # if 'Basic Problem B-' not in problem.name:
-        #     return -1
+        if 'Problem B-' not in problem.name:
+            return -1
 
         imageMap = {}
 
@@ -57,45 +58,64 @@ class Agent:
         imageMap['6'] = Image.open(problem.figures['6'].visualFilename).convert("L")
 
 
-
         no_op_answer = NoOp.solve(imageMap, 'B', 'C')
         if no_op_answer is not -1:
-            print("2 best answer - ", str(no_op_answer))
+            print(problem.name, "2 best answer - ", str(no_op_answer))
             return no_op_answer
 
         no_op_answer = NoOp.solve(imageMap, 'C', 'B')
         if no_op_answer is not -1:
-            print("3 best answer - ", str(no_op_answer))
+            print(problem.name, "3 best answer - ", str(no_op_answer))
             return no_op_answer
 
         reflection_horizontal_answer = Reflection.solve_horizontal(imageMap, 'B', 'C')
         if reflection_horizontal_answer is not -1:
-            print("4 best answer - ", str(reflection_horizontal_answer))
+            print(problem.name, "4 best answer - ", str(reflection_horizontal_answer))
             return reflection_horizontal_answer
 
         reflection_horizontal_answer = Reflection.solve_horizontal(imageMap, 'C', 'B')
         if reflection_horizontal_answer is not -1:
-            print("5 best answer - ", str(reflection_horizontal_answer))
+            print(problem.name, "5 best answer - ", str(reflection_horizontal_answer))
             return reflection_horizontal_answer
 
         reflection_vertical_answer = Reflection.solve_vertical(imageMap, 'B', 'C')
         if reflection_vertical_answer is not -1:
-            print("6 best answer - ", str(reflection_vertical_answer))
+            print(problem.name, "6 best answer - ", str(reflection_vertical_answer))
             return reflection_horizontal_answer
 
         reflection_vertical_answer = Reflection.solve_vertical(imageMap, 'C', 'B')
         if reflection_vertical_answer is not -1:
-            print("7 best answer - ", str(reflection_vertical_answer))
+            print(problem.name, "7 best answer - ", str(reflection_vertical_answer))
             return reflection_horizontal_answer
+
+        rotation_90_answer = Rotation.solve_rotate_90(imageMap, 'B', 'C')
+        if rotation_90_answer is not -1:
+            print(problem.name, "rotate_90 best answer - ", str(rotation_90_answer))
+            return rotation_90_answer
+
+        rotation_90_answer = Rotation.solve_rotate_90(imageMap, 'C', 'B')
+        if rotation_90_answer is not -1:
+            print(problem.name,"rotate_90 best answer - ", str(rotation_90_answer))
+            return rotation_90_answer
+
+        rotation_270_answer = Rotation.solve_rotate_270(imageMap, 'B', 'C')
+        if rotation_270_answer is not -1:
+            print(problem.name, "rotate_270 best answer - ", str(rotation_270_answer))
+            return rotation_270_answer
+
+        rotation_270_answer = Rotation.solve_rotate_270(imageMap, 'C', 'B')
+        if rotation_270_answer is not -1:
+            print(problem.name,"rotate_270 best answer - ", str(rotation_270_answer))
+            return rotation_270_answer
 
         shape_filler_answer = ShapeFiller.solve(imageMap, 'B', 'C')
         if shape_filler_answer is not -1:
-            print("1 best answer - ", str(shape_filler_answer))
+            print(problem.name, "1 best answer - ", str(shape_filler_answer))
             return shape_filler_answer
 
         substract_and_add_answer = SubtractAndAdd.solve(imageMap, 'B', 'C')
         if substract_and_add_answer is not -1:
-            print("8 best answer - ", str(substract_and_add_answer))
+            print(problem.name, "8 best answer - ", str(substract_and_add_answer))
             return substract_and_add_answer
 
 
