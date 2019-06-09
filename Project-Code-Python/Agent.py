@@ -18,6 +18,7 @@ import numpy as np
 import Reflection
 import NoOp
 import ShapeFiller
+import SubtractAndAdd
 
 
 class Agent:
@@ -55,41 +56,48 @@ class Agent:
         imageMap['5'] = Image.open(problem.figures['5'].visualFilename).convert("L")
         imageMap['6'] = Image.open(problem.figures['6'].visualFilename).convert("L")
 
-        shape_filler_answer = ShapeFiller.solve(imageMap, 'B', 'C')
-        if shape_filler_answer is not -1:
-            print("best answer - ", str(shape_filler_answer))
-            return shape_filler_answer
 
 
         no_op_answer = NoOp.solve(imageMap, 'B', 'C')
         if no_op_answer is not -1:
-            print("best answer - ", str(no_op_answer))
+            print("2 best answer - ", str(no_op_answer))
             return no_op_answer
 
         no_op_answer = NoOp.solve(imageMap, 'C', 'B')
         if no_op_answer is not -1:
-            print("best answer - ", str(no_op_answer))
+            print("3 best answer - ", str(no_op_answer))
             return no_op_answer
 
         reflection_horizontal_answer = Reflection.solve_horizontal(imageMap, 'B', 'C')
         if reflection_horizontal_answer is not -1:
-            print("best answer - ", str(reflection_horizontal_answer))
+            print("4 best answer - ", str(reflection_horizontal_answer))
             return reflection_horizontal_answer
 
         reflection_horizontal_answer = Reflection.solve_horizontal(imageMap, 'C', 'B')
         if reflection_horizontal_answer is not -1:
-            print("best answer - ", str(reflection_horizontal_answer))
+            print("5 best answer - ", str(reflection_horizontal_answer))
             return reflection_horizontal_answer
 
         reflection_vertical_answer = Reflection.solve_vertical(imageMap, 'B', 'C')
         if reflection_vertical_answer is not -1:
-            print("best answer - ", str(reflection_vertical_answer))
+            print("6 best answer - ", str(reflection_vertical_answer))
             return reflection_horizontal_answer
 
         reflection_vertical_answer = Reflection.solve_vertical(imageMap, 'C', 'B')
         if reflection_vertical_answer is not -1:
-            print("best answer - ", str(reflection_vertical_answer))
+            print("7 best answer - ", str(reflection_vertical_answer))
             return reflection_horizontal_answer
+
+        shape_filler_answer = ShapeFiller.solve(imageMap, 'B', 'C')
+        if shape_filler_answer is not -1:
+            print("1 best answer - ", str(shape_filler_answer))
+            return shape_filler_answer
+
+        substract_and_add_answer = SubtractAndAdd.solve(imageMap, 'B', 'C')
+        if substract_and_add_answer is not -1:
+            print("8 best answer - ", str(substract_and_add_answer))
+            return substract_and_add_answer
+
 
 
         print("did not find a solution")
