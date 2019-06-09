@@ -31,7 +31,7 @@ def transform(image):
     copy = image.copy()
 
     ImageDraw.floodfill(copy, (height/2, width/2), 0)
-    copy.save('filled.png')
+    # copy.save('filled.png')
 
     return copy
 

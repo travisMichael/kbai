@@ -10,27 +10,29 @@ def solve(imageMap, compared_to_A, image_to_compare_answers_with):
 
     difference = ImageChops.subtract(A, B)
     difference2 = ImageChops.subtract(B, A)
-    difference.save('aB.png')
-    difference2.save('bA.png')
+    # difference.save('aB.png')
+    # difference2.save('bA.png')
     temp_image = ImageOps.invert(difference)
 
     # add the white pixels from ab should be made into black
-    transform_image = transform(C, difference, True)
-    new_image = transform(transform_image, difference2, False)
-    # new_image.save('aaa.png')
+    transform_image_A = transform(A, difference, True)
+    new_image_A = transform(transform_image_A, difference2, False)
+    # new_image_A.save('A_new.png')
 
-    similarity, answer = apply_and_check(new_image, imageMap)
+    similarity = calculate_image_similarity(new_image_A, B)
 
-    if similarity > 0.91:
-        return answer
+    if similarity > 0.95:
 
-    # white pixels from ba should be made white
+        transform_image = transform(C, difference, True)
+        new_image = transform(transform_image, difference2, False)
 
-    # check and apply
+        similarity, answer = apply_and_check(new_image, imageMap)
 
-    # A.save('A_.png')
+        if similarity > 0.91:
+            return answer
 
     return -1
+
 
 def transform(image_to_transform, image_2, ab_add):
     height, width = image_to_transform.size
