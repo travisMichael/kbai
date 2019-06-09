@@ -17,8 +17,8 @@ from PIL import Image
 import numpy as np
 import Reflection
 import NoOp
-# import ShapeFiller
-# import SubtractAndAdd
+import ShapeFiller
+import SubtractAndAdd
 
 
 class Agent:
@@ -41,8 +41,8 @@ class Agent:
     # Returning your answer as a string may cause your program to crash.
     def Solve(self,problem):
 
-        if 'Basic Problem B-' not in problem.name:
-            return -1
+        # if 'Basic Problem B-' not in problem.name:
+        #     return -1
 
         imageMap = {}
 
@@ -88,15 +88,15 @@ class Agent:
             print("7 best answer - ", str(reflection_vertical_answer))
             return reflection_horizontal_answer
 
-        # shape_filler_answer = ShapeFiller.solve(imageMap, 'B', 'C')
-        # if shape_filler_answer is not -1:
-        #     print("1 best answer - ", str(shape_filler_answer))
-        #     return shape_filler_answer
-        #
-        # substract_and_add_answer = SubtractAndAdd.solve(imageMap, 'B', 'C')
-        # if substract_and_add_answer is not -1:
-        #     print("8 best answer - ", str(substract_and_add_answer))
-        #     return substract_and_add_answer
+        shape_filler_answer = ShapeFiller.solve(imageMap, 'B', 'C')
+        if shape_filler_answer is not -1:
+            print("1 best answer - ", str(shape_filler_answer))
+            return shape_filler_answer
+
+        substract_and_add_answer = SubtractAndAdd.solve(imageMap, 'B', 'C')
+        if substract_and_add_answer is not -1:
+            print("8 best answer - ", str(substract_and_add_answer))
+            return substract_and_add_answer
 
 
 
