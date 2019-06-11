@@ -20,6 +20,7 @@ import NoOp
 import ShapeFiller
 import SubtractAndAdd
 import Rotation
+import SimpleSubtract
 
 
 class Agent:
@@ -42,8 +43,8 @@ class Agent:
     # Returning your answer as a string may cause your program to crash.
     def Solve(self,problem):
 
-        if 'Problem B-' not in problem.name:
-            return -1
+        # if 'Basic Problem B-' not in problem.name:
+        #     return -1
 
         imageMap = {}
 
@@ -57,6 +58,15 @@ class Agent:
         imageMap['5'] = Image.open(problem.figures['5'].visualFilename).convert("L")
         imageMap['6'] = Image.open(problem.figures['6'].visualFilename).convert("L")
 
+        simple_subtract_answer = SimpleSubtract.solve(imageMap, 'B', 'C')
+        if simple_subtract_answer is not -1:
+            print(problem.name, "2 best answer - ", str(simple_subtract_answer))
+            return simple_subtract_answer
+
+        simple_subtract_answer = SimpleSubtract.solve(imageMap, 'C', 'B')
+        if simple_subtract_answer is not -1:
+            print(problem.name, "2 best answer - ", str(simple_subtract_answer))
+            return simple_subtract_answer
 
         no_op_answer = NoOp.solve(imageMap, 'B', 'C')
         if no_op_answer is not -1:
