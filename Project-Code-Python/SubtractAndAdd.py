@@ -1,30 +1,28 @@
 from PIL import Image, ImageChops, ImageOps
 from utility import calculate_image_similarity, apply_and_check
 
-# ImageOps.invert(convertedImage)
-# todo Make this more generic by also accounting for subtracting first
+
 def solve(imageMap, compared_to_A, image_to_compare_answers_with):
     A = imageMap.get('A')
-    B = imageMap.get('B')
-    C = imageMap.get('C')
+    B = imageMap.get(compared_to_A)
+    C = imageMap.get(image_to_compare_answers_with)
 
     difference = ImageChops.subtract(A, B)
     difference2 = ImageChops.subtract(B, A)
-    # difference.save('aB.png')
-    # difference2.save('bA.png')
-    temp_image = ImageOps.invert(difference)
 
     # add the white pixels from ab should be made into black
-    transform_image_A = transform(A, difference, True)
-    new_image_A = transform(transform_image_A, difference2, False)
+    transform_image_A = transform(A, difference)
+    new_image_A = transform(transform_image_A, difference2)
+    # transform_image_A.save('aB.png')
+    # new_image_A.save('bA.png')
     # new_image_A.save('A_new.png')
 
     similarity = calculate_image_similarity(new_image_A, B)
 
     if similarity > 0.95:
 
-        transform_image = transform(C, difference, True)
-        new_image = transform(transform_image, difference2, False)
+        transform_image = transform(C, difference)
+        new_image = transform(transform_image, difference2)
 
         similarity, answer = apply_and_check(new_image, imageMap)
 
@@ -34,17 +32,24 @@ def solve(imageMap, compared_to_A, image_to_compare_answers_with):
     return -1
 
 
-def transform(image_to_transform, image_2, ab_add):
+def transform(image_to_transform, difference):
     height, width = image_to_transform.size
     transform = image_to_transform.copy()
 
     for i in range(height):
         for j in range(width):
-            if image_2.getpixel((i,j)) == 255:
-                if ab_add:
-                    transform.putpixel((i, j), 0)
-                else:
-                    transform.putpixel((i, j), 255)
+            if difference.getpixel((i,j)) == 255:
+                flip_pixel(i, j, transform)
 
     return transform
 
+
+def flip_pixel(i, j, image):
+    pixel = image.getpixel((i,j))
+    if pixel == 255:
+        image.putpixel((i, j), 0)
+    elif pixel == 0:
+        image.putpixel((i, j), 255)
+    else:
+        # print("should not be here", image.getpixel((i,j)))
+        pass
