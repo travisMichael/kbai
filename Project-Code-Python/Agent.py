@@ -13,6 +13,7 @@
 # Install Pillow and uncomment this line to access image processing.
 # from PIL import Image
 import Bsolver
+import Csolver
 
 
 class Agent:
@@ -35,11 +36,11 @@ class Agent:
     # Returning your answer as a string may cause your program to crash.
     def Solve(self,problem):
 
-        # if 'Problem B-' not in problem.name:
-        #     return -1
+        # answer = Bsolver.solve(problem)
+        # if answer != -1:
+        #     return answer
 
-
-        answer = Bsolver.solve(problem)
+        answer = Csolver.solve(problem)
         if answer != -1:
             return answer
 

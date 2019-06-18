@@ -10,6 +10,9 @@ import SimpleSubtract
 import SimilarPixels
 
 def solve(problem):
+    if 'Problem B-' not in problem.name:
+        return -1
+
     imageMap = {}
 
     imageMap['A'] = Image.open(problem.figures['A'].visualFilename).convert("L")

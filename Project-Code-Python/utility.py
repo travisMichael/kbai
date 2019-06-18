@@ -29,6 +29,18 @@ def apply_and_check(convertedImage, imageMap):
 
     return similarity, bestImageChoice
 
+def apply_and_check_3x3(convertedImage, imageMap):
+
+    similarity = 0.0
+    bestImageChoice = -1
+    for i in range(8):
+        temp_similarity = calculate_image_similarity(convertedImage, imageMap.get(str(i+1)))
+        if temp_similarity > similarity:
+            similarity = temp_similarity
+            bestImageChoice = i+1
+
+    return similarity, bestImageChoice
+
 
 def find_answer_with_same_similarity(convertedImage, imageMap, similarity_to_target):
 
