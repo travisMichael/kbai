@@ -20,6 +20,9 @@ def main():
     'Reflection.py',
     'SubtractAndAdd.py',
     'ShapeFiller.py',
+    'SimpleSubtract.py',
+    'SimilarPixels.py',
+    'Rotation.py',
     'utility.py'
   ])
   args = parser.parse_args()
