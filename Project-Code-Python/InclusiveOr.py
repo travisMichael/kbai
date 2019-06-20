@@ -1,12 +1,10 @@
 from PIL import Image
-from utility import calculate_image_similarity, apply_and_check, apply_and_check_3x3
+from utility import calculate_image_similarity, apply_and_check_3x3
 
 THRESHOLD = 0.97
 
 
 def solve_3x3(imageMap):
-
-    inclusive_or_transform
 
     image_A = imageMap.get('A')
     image_B = imageMap.get('B')
