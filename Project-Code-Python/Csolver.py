@@ -1,13 +1,6 @@
 from PIL import Image
-# from PIL import ImageOps
-import numpy as np
-import Reflection
 import NoOp
-import ShapeFiller
-import SubtractAndAdd
-import Rotation
-import SimpleSubtract
-import SimilarPixels
+import InclusiveOr
 
 def solve(problem):
     if 'Problem C-' not in problem.name:
@@ -38,7 +31,12 @@ def solve(problem):
 
     no_op_answer = NoOp.solve_3x3(imageMap, group_1, group_2, group_3)
     if no_op_answer is not -1:
-        print(problem.name, "3 best answer - ", str(no_op_answer))
+        print(problem.name, "1 best answer - ", str(no_op_answer))
         return no_op_answer
+
+    inclusive_or_answer = InclusiveOr.solve_3x3(imageMap)
+    if inclusive_or_answer is not -1:
+        print(problem.name, "2 best answer - ", str(inclusive_or_answer))
+        return inclusive_or_answer
 
     return -1
