@@ -15,14 +15,24 @@ def main():
   parser.add_argument('--assignment', choices = ['P1', 'P2', 'P3', 'error-check', 'error-check-2', 'error-check-3'], required=True)
   parser.add_argument('--provider', choices = ['gt', 'udacity'], default = 'gt')
   parser.add_argument('--environment', choices = ['local', 'development', 'staging', 'production'], default = 'production')
+  # parser.add_argument('--files', type=str, nargs='+', default = [
+  #   'NoOp.py',
+  #   'Reflection.py',
+  #   'SubtractAndAdd.py',
+  #   'ShapeFiller.py',
+  #   'SimpleSubtract.py',
+  #   'SimilarPixels.py',
+  #   'Rotation.py',
+  #   'utility.py'
+  # ])
+
   parser.add_argument('--files', type=str, nargs='+', default = [
+    'Csolver.py',
+    'ProgressiveAddition.py',
     'NoOp.py',
-    'Reflection.py',
-    'SubtractAndAdd.py',
-    'ShapeFiller.py',
-    'SimpleSubtract.py',
-    'SimilarPixels.py',
-    'Rotation.py',
+    'InclusiveOr.py',
+    'ProgressiveAddition.py',
+    'HorizontalTranslation.py',
     'utility.py'
   ])
   args = parser.parse_args()

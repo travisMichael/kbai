@@ -12,7 +12,7 @@
 
 # Install Pillow and uncomment this line to access image processing.
 # from PIL import Image
-import Bsolver
+# import Bsolver
 import Csolver
 
 
@@ -39,7 +39,11 @@ class Agent:
         # answer = Bsolver.solve(problem)
         # if answer != -1:
         #     return answer
-        # if 'Problem C-' not in problem.name:
+        # if 'Basic Problem C-' not in problem.name:
+        #     return -1
+
+        if 'Problem C-' not in problem.name:
+            return -1
         #     return -1
 
         answer = Csolver.solve(problem)

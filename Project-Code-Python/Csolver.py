@@ -1,10 +1,12 @@
 from PIL import Image
 import NoOp
 import InclusiveOr
+import ProgressiveAddition
+import HorizontalTranslation
 
 def solve(problem):
-    if 'Problem C-' not in problem.name:
-        return -1
+    # if 'Problem C-' not in problem.name:
+    #     return -1
 
     imageMap = {}
 
@@ -38,5 +40,15 @@ def solve(problem):
     if inclusive_or_answer is not -1:
         print(problem.name, "2 best answer - ", str(inclusive_or_answer))
         return inclusive_or_answer
+
+    progressive_addition_answer = ProgressiveAddition.solve_3x3(imageMap)
+    if progressive_addition_answer is not -1:
+        print(problem.name, "3 best answer - ", str(progressive_addition_answer))
+        return progressive_addition_answer
+
+    horizontal_translate_answer = HorizontalTranslation.solve_3x3(imageMap)
+    if horizontal_translate_answer is not -1:
+        print(problem.name, "4 best answer - ", str(horizontal_translate_answer))
+        return horizontal_translate_answer
 
     return -1

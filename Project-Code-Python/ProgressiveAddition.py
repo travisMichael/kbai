@@ -15,18 +15,20 @@ def solve_3x3(imageMap):
     image_H = imageMap.get('H')
 
     # row 1
-    result = is_proper_subset(image_C, image_B)
+    result = is_proper_subset(image_B, image_C)
     if not result:
         return -1
-    result = is_proper_subset(image_B, image_A)
+    result = is_proper_subset(image_A, image_B)
     if not result:
         return -1
-
+    result = is_proper_subset(image_C, image_F)
+    if not result:
+        return -1
     # row 2
-    result = is_proper_subset(image_C, image_B)
+    result = is_proper_subset(image_D, image_G)
     if not result:
         return -1
-    result = is_proper_subset(image_B, image_A)
+    result = is_proper_subset(image_A, image_D)
     if not result:
         return -1
 
@@ -38,12 +40,16 @@ def is_proper_subset(image_1, image_2):
 
     number_of_pixels = 0
 
+    new = Image.new("L", (height, width), color=255)
+
     for i in range(height):
         for j in range(width):
-            if image_2.getpixel((i, j)) == 0 and image_2.getpixel((i,j)) == 255:
+            if image_1.getpixel((i, j)) == 0 and image_2.getpixel((i,j)) == 255:
                 number_of_pixels += 1
+                new.putpixel((i, j), 0)
 
-    if number_of_pixels > 10:
+    # new.save("new.png")
+    if number_of_pixels > 2:
         return False
 
     return True
