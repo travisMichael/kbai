@@ -2,7 +2,7 @@ from PIL import Image
 from utility import calculate_image_similarity, apply_and_check_3x3
 import numpy as np
 
-
+# C-07
 def solve_3x3(imageMap):
 
     image_A = imageMap.get('A')
@@ -15,26 +15,24 @@ def solve_3x3(imageMap):
 
     horizontal_reflection_A = horizontal_reflection(image_A)
     similarity = calculate_image_similarity(horizontal_reflection_A, image_C)
-    if similarity < 0.96:
+    if similarity < 0.95:
         return -1
 
     horizontal_reflection_D = horizontal_reflection(image_D)
     similarity = calculate_image_similarity(horizontal_reflection_D, image_F)
-    if similarity < 0.96:
+    if similarity < 0.95:
         return -1
 
     vertical_reflection_A = vertical_reflection(image_A)
     similarity = calculate_image_similarity(vertical_reflection_A, image_G)
-    if similarity < 0.96:
+    if similarity < 0.95:
         return -1
 
     result = radial_reflection_transform(image_A)
 
     similarity, best_answer = apply_and_check_3x3(result, imageMap)
-
-    if similarity > 0.96:
-        return best_answer
-    return -1
+    return best_answer
+    # if similarity > 0.88:
 
 
 def horizontal_reflection(image):
