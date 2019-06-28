@@ -67,7 +67,7 @@ def translate(image_1):
     first_index, bounding_box, last_index = get(first_half)
     first_index_2, bounding_box_2, last_index_2 = get(second_half)
 
-    if first_index is None or first_half is None:
+    if first_index is None or first_index_2 is None:
         return None
 
     slim_padding_left = np.zeros((height, first_index), dtype=np.uint8)

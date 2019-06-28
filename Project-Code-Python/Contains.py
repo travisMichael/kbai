@@ -95,7 +95,6 @@ def calculate_number_of_black_pixels(image):
 
 
 def find_index_of_first_black_pixel(array, start_from_right_side):
-    length = len(array)
     if start_from_right_side:
         for i in range(len(array) - 1, -1, -1):
             if array[i] == 0:
@@ -109,12 +108,30 @@ def find_index_of_first_black_pixel(array, start_from_right_side):
         return i
 
 
+def calculate_is_same(array_1, array_2, left_index, right_index):
+
+    if right_index < left_index:
+        return True
+
+    number_of_different_pixels = 0
+    if right_index - left_index > 10:
+        for i in range(left_index + 5, right_index - 4):
+            if array_1[i] != array_2[i]:
+                number_of_different_pixels += 1
+
+    if number_of_different_pixels > 5:
+        return False
+
+    return True
+
+
 # the black pixels of image_2 must be contained inside image 1
 def is_horizontally_contained(image_1, image_2):
     height, width = image_1.size
 
     np_image_1 = np.array(image_1)
     np_image_2 = np.array(image_2)
+    is_same = True
 
     for i in range(height):
         # left to right check
@@ -122,7 +139,11 @@ def is_horizontally_contained(image_1, image_2):
         index_left_2 = find_index_of_first_black_pixel(np_image_2[i], False)
         index_right_1 = find_index_of_first_black_pixel(np_image_1[i], True)
         index_right_2 = find_index_of_first_black_pixel(np_image_2[i], True)
+        if 85 < i and i < 100:
+            is_same = calculate_is_same(np_image_1[i], np_image_2[i], index_left_2, index_right_2)
 
+        if not is_same:
+            return False
         if index_left_1 > index_left_2:
             return False
         if index_right_1 < index_right_2:

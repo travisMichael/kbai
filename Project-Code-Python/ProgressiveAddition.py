@@ -32,7 +32,48 @@ def solve_3x3(imageMap):
     if not result:
         return -1
 
-    return 4
+    # check answers ----------------------------
+    image_1 = imageMap.get('1')
+    result = is_proper_subset(image_H, image_1)
+    if result:
+        return 1
+
+    image_2 = imageMap.get('2')
+    result = is_proper_subset(image_H, image_2)
+    if result:
+        return 2
+
+    image_3 = imageMap.get('3')
+    result = is_proper_subset(image_H, image_3)
+    if result:
+        return 3
+
+    image_4 = imageMap.get('4')
+    result = is_proper_subset(image_H, image_4)
+    if result:
+        return 4
+
+    image_5 = imageMap.get('5')
+    result = is_proper_subset(image_H, image_5)
+    if result:
+        return 5
+
+    image_6 = imageMap.get('6')
+    result = is_proper_subset(image_H, image_6)
+    if result:
+        return 6
+
+    image_7 = imageMap.get('7')
+    result = is_proper_subset(image_H, image_7)
+    if result:
+        return 7
+
+    image_8 = imageMap.get('8')
+    result = is_proper_subset(image_H, image_8)
+    if result:
+        return 8
+
+    return -1
 
 
 def is_proper_subset(image_1, image_2):

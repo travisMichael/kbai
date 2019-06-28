@@ -28,11 +28,12 @@ def main():
 
   parser.add_argument('--files', type=str, nargs='+', default = [
     'Csolver.py',
-    'ProgressiveAddition.py',
     'NoOp.py',
     'InclusiveOr.py',
     'ProgressiveAddition.py',
     'HorizontalTranslation.py',
+    'Contains.py',
+    'RadialReflectionSolver.py',
     'utility.py'
   ])
   args = parser.parse_args()
