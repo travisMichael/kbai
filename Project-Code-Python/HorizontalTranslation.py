@@ -31,10 +31,8 @@ def solve_3x3(imageMap):
     result.save("result.png")
     similarity, best_answer = apply_and_check_3x3(result, imageMap)
 
-    if similarity > 0.91:
-        return best_answer
+    return best_answer
 
-    return 4
 
 def get(image):
     height, width = image.shape
