@@ -1,5 +1,6 @@
 from PIL import Image
 from utility import calculate_image_similarity, apply_and_check_3x3
+import numpy as np
 
 THRESHOLD = 0.97
 
@@ -33,47 +34,68 @@ def solve_3x3(imageMap):
         return -1
 
     # check answers ----------------------------
+    answer = -1
+    answers = []
     image_1 = imageMap.get('1')
     result = is_proper_subset(image_H, image_1)
-    if result:
-        return 1
+    result_2 = is_proper_subset(image_F, image_1)
+    if result and result_2:
+        answers.append(1)
+        answer = 1
 
     image_2 = imageMap.get('2')
     result = is_proper_subset(image_H, image_2)
-    if result:
-        return 2
+    result_2 = is_proper_subset(image_F, image_2)
+    if result and result_2:
+        answers.append(1)
+        answer = 2
 
     image_3 = imageMap.get('3')
     result = is_proper_subset(image_H, image_3)
-    if result:
-        return 3
+    result_2 = is_proper_subset(image_F, image_3)
+    if result and result_2:
+        answers.append(1)
+        answer = 3
 
     image_4 = imageMap.get('4')
     result = is_proper_subset(image_H, image_4)
-    if result:
-        return 4
+    result_2 = is_proper_subset(image_F, image_4)
+    if result and result_2:
+        answers.append(1)
+        answer = 4
 
     image_5 = imageMap.get('5')
     result = is_proper_subset(image_H, image_5)
-    if result:
-        return 5
+    result_2 = is_proper_subset(image_F, image_5)
+    if result and result_2:
+        answers.append(1)
+        answer = 5
 
     image_6 = imageMap.get('6')
     result = is_proper_subset(image_H, image_6)
-    if result:
-        return 6
+    result_2 = is_proper_subset(image_F, image_6)
+    if result and result_2:
+        answers.append(1)
+        answer = 6
 
     image_7 = imageMap.get('7')
     result = is_proper_subset(image_H, image_7)
-    if result:
-        return 7
+    result_2 = is_proper_subset(image_F, image_7)
+    if result and result_2:
+        answers.append(1)
+        answer = 7
 
     image_8 = imageMap.get('8')
     result = is_proper_subset(image_H, image_8)
-    if result:
-        return 8
+    result_2 = is_proper_subset(image_F, image_8)
+    if result and result_2:
+        answers.append(1)
+        answer = 8
 
-    return -1
+    if len(answers) > 1:
+        print("more than one answer found!!")
+        return -1
+    return answer
 
 
 def is_proper_subset(image_1, image_2):
@@ -81,16 +103,15 @@ def is_proper_subset(image_1, image_2):
 
     number_of_pixels = 0
 
-    new = Image.new("L", (height, width), color=255)
+    np_image_1 = np.array(image_1)
+    np_image_2 = np.array(image_2)
 
     for i in range(height):
         for j in range(width):
-            if image_1.getpixel((i, j)) == 0 and image_2.getpixel((i,j)) == 255:
+            if np_image_1[i][j] == 0 and np_image_2[i][j] == 255:
                 number_of_pixels += 1
-                new.putpixel((i, j), 0)
 
-    # new.save("new.png")
-    if number_of_pixels > 2:
+    if number_of_pixels > 10:
         return False
 
     return True
