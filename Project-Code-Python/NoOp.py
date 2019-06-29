@@ -19,13 +19,18 @@ def solve(imageMap, compared_to_A, image_to_compare_answers_with):
     return -1
 
 
-def solve_3x3(imageMap, group_1, group_2, group_3):
+# C-01
+def solve_3x3(imageMap, pixel_ratio_map, group_1, group_2, group_3):
 
     last_label = group_1[0]
     for i in range(len(group_1) - 1):
         current_label = group_1[i + 1]
         last_image = imageMap.get(last_label)
         current_image = imageMap.get(current_label)
+        last_image_pixel_info = pixel_ratio_map.get(last_label)
+        current_image_pixel_info = pixel_ratio_map.get(current_label)
+        if last_image_pixel_info.get('black_pixels') != current_image_pixel_info.get('black_pixels'):
+            return -1
         similarity = calculate_image_similarity(last_image, current_image)
         if similarity < THRESHOLD:
             return -1
