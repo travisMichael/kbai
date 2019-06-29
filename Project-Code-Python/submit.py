@@ -34,6 +34,8 @@ def main():
     'HorizontalTranslation.py',
     'Contains.py',
     'RadialReflectionSolver.py',
+    'DoubleImageSolver.py',
+    'IncrementalArithmeticSolver.py',
     'utility.py'
   ])
   args = parser.parse_args()
