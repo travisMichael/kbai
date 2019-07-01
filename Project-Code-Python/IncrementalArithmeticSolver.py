@@ -73,7 +73,47 @@ def solve_3x3(imageMap, pixel_ratio_map):
 
     if len(potential_answers) == 1:
         return potential_answers[0]
+
+    potential_answers = []
+
+    for i in range(1, 9):
+        # if i == 7:
+        #     print()
+        result = filter_answer_based_on_criteria_2(imageMap, pixel_ratio_map, str(i), vertical_diff, horizontal_diff)
+        if result is not None and result:
+            potential_answers.append(i)
+        elif not None and not result:
+            number_of_answers_filtered += 1
+
+    if len(potential_answers) == 1:
+        return potential_answers[0]
+
+    if len(potential_answers) == 2:
+        image_1 = imageMap.get(str(potential_answers[0]))
+        image_2 = imageMap.get(str(potential_answers[1]))
+        similarity_1 = calculate_image_similarity(image_1, imageMap.get('A'))
+        similarity_2 = calculate_image_similarity(image_2, imageMap.get('B'))
+        if similarity_1 > similarity_2:
+            return potential_answers[0]
+        return potential_answers[1]
     return -1
+
+
+def filter_answer_based_on_criteria_2(image_map, pixel_ratio_map, answer_label, vertical_diff, horizontal_diff):
+    black_f = pixel_ratio_map.get('F').get('black_pixels')
+    black_h = pixel_ratio_map.get('H').get('black_pixels')
+    black_answer = pixel_ratio_map.get(answer_label).get('black_pixels')
+
+    f_1_diff = black_f - black_answer
+    h_1_diff = black_h - black_answer
+
+    if is_close(black_f, black_h, 200) \
+            and is_close(f_1_diff, h_1_diff, 200) \
+            and is_same_sign(horizontal_diff, f_1_diff) \
+            and is_same_sign(vertical_diff, h_1_diff):
+        return True
+
+    return None
 
 
 def filter_answer_based_on_criteria(image_map, pixel_ratio_map, answer_label, vertical_diff, horizontal_diff):
