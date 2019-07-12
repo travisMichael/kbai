@@ -4,6 +4,8 @@ import numpy as np
 
 # returns a value from 0-1. 0 = no similarity, 1 = exactly similar
 def calculate_image_similarity(image_1, image_2):
+    if image_1 is None or image_2 is None:
+        return 0.0
     image_1 = np.array(image_1)
     image_2 = np.array(image_2)
     number_of_pixels_different = 0
@@ -23,9 +25,9 @@ def calculate_pixel_ratio(image):
     black_pixels = 0
     for i in range(184):
         for j in range(184):
-            if image[i][j] == 255:
+            if image[i][j] > 200:
                 white_pixels += 1
-            if image[i][j] == 0:
+            else:
                 black_pixels += 1
     pixel_object = {'black_pixels': black_pixels, 'white_pixels': white_pixels}
 
@@ -66,7 +68,6 @@ def calculate_pixel_ratio_map(image_map):
 
 # return the similarity between C and D after C has been calculated by the operators
 def apply_and_check(convertedImage, imageMap):
-
     similarity = 0.0
     bestImageChoice = -1
     for i in range(6):

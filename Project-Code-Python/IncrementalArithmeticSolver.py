@@ -6,6 +6,8 @@ CLOSENESS_THRESHOLD = 200
 
 
 def is_close(value_1, value_2, epsilon):
+    value_1 = abs(value_1)
+    value_2 = abs(value_2)
 
     if epsilon is not None:
         if value_1 - epsilon < value_2 < value_1 + epsilon:
@@ -77,7 +79,7 @@ def solve_3x3(imageMap, pixel_ratio_map):
     potential_answers = []
 
     for i in range(1, 9):
-        # if i == 7:
+        # if i == 4:
         #     print()
         result = filter_answer_based_on_criteria_2(imageMap, pixel_ratio_map, str(i), vertical_diff, horizontal_diff)
         if result is not None and result:
@@ -107,10 +109,10 @@ def filter_answer_based_on_criteria_2(image_map, pixel_ratio_map, answer_label, 
     f_1_diff = black_f - black_answer
     h_1_diff = black_h - black_answer
 
-    if is_close(black_f, black_h, 200) \
+    if (is_close(black_f, black_h, 200) or (is_close(black_answer, black_f - vertical_diff, 200) and is_close(black_answer, black_h - horizontal_diff, 200))) \
             and is_close(f_1_diff, h_1_diff, 200) \
-            and is_same_sign(horizontal_diff, f_1_diff) \
-            and is_same_sign(vertical_diff, h_1_diff):
+            and is_same_sign(horizontal_diff, h_1_diff) \
+            and is_same_sign(vertical_diff, f_1_diff):
         return True
 
     return None
@@ -133,7 +135,7 @@ def filter_answer_based_on_criteria(image_map, pixel_ratio_map, answer_label, ve
     similarity = calculate_image_similarity(image_map.get(answer_label), image_map.get('F'))
     similarity_2 = calculate_image_similarity(image_map.get(answer_label), image_map.get('H'))
 
-    if similarity > 0.96 and similarity_2 > 0.96:
+    if similarity > 0.97 and similarity_2 > 0.97:
         return True
 
     return False
