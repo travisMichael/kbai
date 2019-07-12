@@ -13,8 +13,8 @@
 # Install Pillow and uncomment this line to access image processing.
 # from PIL import Image
 # import Bsolver
-import Csolver
-
+# import Csolver
+import Dsolver
 
 class Agent:
     # The default constructor for your Agent. Make sure to execute any
@@ -42,11 +42,15 @@ class Agent:
         # if 'Basic Problem C-' not in problem.name:
         #     return -1
 
-        if 'Problem C-' not in problem.name:
+        if 'Problem D-02' not in problem.name:
             return -1
         #     return -1
 
-        answer = Csolver.solve(problem)
+        # answer = Csolver.solve(problem)
+        # if answer != -1:
+        #     return answer
+
+        answer = Dsolver.solve(problem)
         if answer != -1:
             return answer
 
