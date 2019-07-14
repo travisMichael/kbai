@@ -25,7 +25,7 @@ def calculate_pixel_ratio(image):
     black_pixels = 0
     for i in range(184):
         for j in range(184):
-            if image[i][j] > 200:
+            if image[i][j] > 100:
                 white_pixels += 1
             else:
                 black_pixels += 1
@@ -75,6 +75,18 @@ def apply_and_check(convertedImage, imageMap):
         if temp_similarity > similarity:
             similarity = temp_similarity
             bestImageChoice = i+1
+
+    return similarity, bestImageChoice
+
+def apply_and_check_with_choices_3x3(convertedImage, imageMap, choices):
+
+    similarity = 0.0
+    bestImageChoice = -1
+    for choice in choices:
+        temp_similarity = calculate_image_similarity(convertedImage, imageMap.get(choice))
+        if temp_similarity > similarity:
+            similarity = temp_similarity
+            bestImageChoice = choice
 
     return similarity, bestImageChoice
 
