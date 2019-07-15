@@ -1,17 +1,9 @@
 
 from PIL import Image
 import NoOp
-import OneOfEach
 import MatchDiagonals
 import SimilarPixels
 import AnswerComparison
-import InclusiveOr
-import ProgressiveAddition
-import HorizontalTranslation
-import RadialReflectionSolver
-import Contains
-import DoubleImageSolver
-import IncrementalArithmeticSolver
 from utility import calculate_pixel_ratio, calculate_pixel_ratio_map
 
 
@@ -48,15 +40,15 @@ def solve(problem):
     group_2_2 = ['B', 'E', 'H']
     group_2_3 = ['C', 'F']
 
-    # no_op_answer = NoOp.solve_3x3(imageMap, pixel_ratio_map, group_1, group_2, group_3)
-    # if no_op_answer is not -1:
-    #     print(problem.name, "1 best answer - ", str(no_op_answer))
-    #     return no_op_answer
-    #
-    # no_op_answer = NoOp.solve_3x3(imageMap, pixel_ratio_map, group_2_1, group_2_2, group_2_3)
-    # if no_op_answer is not -1:
-    #     print(problem.name, "1 best answer - ", str(no_op_answer))
-    #     return no_op_answer
+    no_op_answer = NoOp.solve_3x3(imageMap, pixel_ratio_map, group_1, group_2, group_3)
+    if no_op_answer is not -1:
+        print(problem.name, "1 best answer - ", str(no_op_answer))
+        return no_op_answer
+
+    no_op_answer = NoOp.solve_3x3(imageMap, pixel_ratio_map, group_2_1, group_2_2, group_2_3)
+    if no_op_answer is not -1:
+        print(problem.name, "1 best answer - ", str(no_op_answer))
+        return no_op_answer
 
     match_diagonals_answer = MatchDiagonals.solve_3x3(imageMap)
     if match_diagonals_answer is not -1:
@@ -68,10 +60,10 @@ def solve(problem):
         print(problem.name, "answer comparison best answer - ", str(answer_comparison_answer))
         return answer_comparison_answer
 
-    # similar_pixel_answer = SimilarPixels.solve_3x3(imageMap)
-    # if similar_pixel_answer is not -1:
-    #     print(problem.name, "similar pixels best answer - ", str(similar_pixel_answer))
-    #     return similar_pixel_answer
+    similar_pixel_answer = SimilarPixels.solve_3x3(imageMap)
+    if similar_pixel_answer is not -1:
+        print(problem.name, "similar pixels best answer - ", str(similar_pixel_answer))
+        return similar_pixel_answer
 
     # ----------------------------------------------------------------------
 

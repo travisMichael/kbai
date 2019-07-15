@@ -42,17 +42,17 @@ class Agent:
         # if 'Basic Problem C-' not in problem.name:
         #     return -1
 
-        if 'Basic Problem E-' not in problem.name:
-            return -1
+        # if 'Basic Problem D-' not in problem.name:
+        #     return -1
         #     return -1
 
         # answer = Csolver.solve(problem)
         # if answer != -1:
         #     return answer
 
-        # answer = Dsolver.solve(problem)
-        # if answer != -1:
-        #     return answer
+        answer = Dsolver.solve(problem)
+        if answer != -1:
+            return answer
 
         answer = Esolver.solve(problem)
         if answer != -1:

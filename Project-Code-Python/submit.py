@@ -26,16 +26,29 @@ def main():
   #   'utility.py'
   # ])
 
+  # parser.add_argument('--files', type=str, nargs='+', default = [
+  #   'Csolver.py',
+  #   'NoOp.py',
+  #   'InclusiveOr.py',
+  #   'ProgressiveAddition.py',
+  #   'HorizontalTranslation.py',
+  #   'Contains.py',
+  #   'RadialReflectionSolver.py',
+  #   'DoubleImageSolver.py',
+  #   'IncrementalArithmeticSolver.py',
+  #   'utility.py'
+  # ])
+
   parser.add_argument('--files', type=str, nargs='+', default = [
-    'Csolver.py',
+    'Dsolver.py',
+    'Esolver.py',
     'NoOp.py',
+    'MatchDiagonals.py',
+    'SimilarPixels.py',
+    'AnswerComparison.py',
     'InclusiveOr.py',
-    'ProgressiveAddition.py',
-    'HorizontalTranslation.py',
-    'Contains.py',
-    'RadialReflectionSolver.py',
-    'DoubleImageSolver.py',
-    'IncrementalArithmeticSolver.py',
+    'SimpleSubtract.py',
+    'ImageTransformUtility.py',
     'utility.py'
   ])
   args = parser.parse_args()
