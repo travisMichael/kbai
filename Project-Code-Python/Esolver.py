@@ -2,6 +2,7 @@
 from PIL import Image
 import NoOp
 import InclusiveOr
+import SimpleSubtract
 from utility import calculate_pixel_ratio, calculate_pixel_ratio_map
 
 
@@ -38,10 +39,15 @@ def solve(problem):
     group_2_2 = ['B', 'E', 'H']
     group_2_3 = ['C', 'F']
 
-    inclusive_or_answer = InclusiveOr.solve_3x3_groupings(imageMap, [['A', 'B'], ['D', 'E']], ['C', 'F'], ['G', 'H'])
-    if inclusive_or_answer is not -1:
-        print(problem.name, "1 best answer - ", str(inclusive_or_answer))
-        return inclusive_or_answer
+    # inclusive_or_answer = InclusiveOr.solve_3x3_groupings(imageMap, [['A', 'B'], ['D', 'E']], ['C', 'F'], ['G', 'H'])
+    # if inclusive_or_answer is not -1:
+    #     print(problem.name, "1 best answer - ", str(inclusive_or_answer))
+    #     return inclusive_or_answer
+
+    simple_subtract_answer = SimpleSubtract.solve_3x3(imageMap, [['A', 'B'], ['D', 'E']], ['C', 'F'], ['G', 'H'])
+    if simple_subtract_answer is not -1:
+        print(problem.name, "1 best answer - ", str(simple_subtract_answer))
+        return simple_subtract_answer
 
     # no_op_answer = NoOp.solve_3x3(imageMap, pixel_ratio_map, group_1, group_2, group_3)
     # if no_op_answer is not -1:

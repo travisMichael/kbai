@@ -1,6 +1,7 @@
 from utility import calculate_image_similarity, apply_and_check, apply_and_check_3x3
 import ImageTransformUtility
 
+
 def solve(imageMap):
     A = imageMap.get('A')
     B = imageMap.get('B')
@@ -28,6 +29,7 @@ def transform(image_1, image_2):
                 transform.putpixel((i,j), 255)
 
     return transform
+
 
 def solve_3x3(imageMap):
 
