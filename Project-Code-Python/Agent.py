@@ -15,7 +15,7 @@
 # import Bsolver
 # import Csolver
 import Dsolver
-
+import Esolver
 class Agent:
     # The default constructor for your Agent. Make sure to execute any
     # processing necessary before your Agent starts solving problems here.
@@ -42,7 +42,7 @@ class Agent:
         # if 'Basic Problem C-' not in problem.name:
         #     return -1
 
-        if 'Basic Problem D-' not in problem.name:
+        if 'Basic Problem E-' not in problem.name:
             return -1
         #     return -1
 
@@ -50,7 +50,11 @@ class Agent:
         # if answer != -1:
         #     return answer
 
-        answer = Dsolver.solve(problem)
+        # answer = Dsolver.solve(problem)
+        # if answer != -1:
+        #     return answer
+
+        answer = Esolver.solve(problem)
         if answer != -1:
             return answer
 
