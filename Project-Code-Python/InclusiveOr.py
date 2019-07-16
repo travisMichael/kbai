@@ -1,4 +1,3 @@
-from PIL import Image
 from utility import calculate_image_similarity, apply_and_check_3x3
 import ImageTransformUtility
 

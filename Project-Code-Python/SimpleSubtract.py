@@ -56,7 +56,7 @@ def solve_3x3_exclusive_or(imageMap, groupings, expected_results, group_to_check
     image_1 = imageMap.get(group_to_check[0])
     image_2 = imageMap.get(group_to_check[1])
     final_result = ImageTransformUtility.dark_pixel_exclusive_or_transform(image_1, image_2)
-    final_result.save('final_result.png')
+    # final_result.save('final_result.png')
 
     similarity, best_answer = apply_and_check_3x3(final_result, imageMap)
 

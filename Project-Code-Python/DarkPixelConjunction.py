@@ -13,7 +13,7 @@ def solve_3x3(imageMap, groupings, expected_results, group_to_check):
         expected_result = imageMap.get(expected_results[i])
 
         actual_result = ImageTransformUtility.dark_pixel_conjunction_transform(image_1, image_2)
-        # actual_result.save('actual_result.png')
+        actual_result.save('actual_result.png')
 
         similarity = calculate_image_similarity(actual_result, expected_result)
 

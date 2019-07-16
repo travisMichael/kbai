@@ -15,6 +15,7 @@ import csv
 from Agent import Agent
 from ProblemSet import ProblemSet
 from RavensGrader import grade
+import time
 
 def getNextLine(r):
     return r.readline().rstrip()
@@ -39,6 +40,7 @@ def solve():
     agent=Agent()   # Your agent will be initialized with its default constructor.
                     # You may modify the default constructor in Agent.java
 
+    start = time.time()
     # Running agent against each problem set
     with open("AgentAnswers.csv","w") as results:     # Results will be written to ProblemResults.csv.
                                                         # Note that each run of the program will overwrite the previous results.
@@ -52,6 +54,8 @@ def solve():
 
                 results.write("%s,%s,%d\n" % (set.name, problem.name, answer))
     r.close()
+    end = time.time()
+    print("total time", end - start)
 
 # The main execution will have your agent generate answers for all the problems,
 # then generate the grades for them.
