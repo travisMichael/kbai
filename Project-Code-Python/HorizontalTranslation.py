@@ -28,7 +28,6 @@ def solve_3x3(imageMap):
         return -1
 
     result = translate(image_G)
-    result.save("result.png")
     similarity, best_answer = apply_and_check_3x3(result, imageMap)
 
     return best_answer

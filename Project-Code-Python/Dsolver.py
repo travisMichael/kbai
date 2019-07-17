@@ -65,12 +65,12 @@ def solve(problem):
     # if match_diagonals_answer is not -1:
     #     print(problem.name, "1 best answer - ", str(match_diagonals_answer))
     #     return match_diagonals_answer
-
+    #
     # answer_comparison_answer = AnswerComparison.solve_3x3(imageMap)
     # if answer_comparison_answer is not -1:
     #     print(problem.name, "answer comparison best answer - ", str(answer_comparison_answer))
     #     return answer_comparison_answer
-
+    #
     # similar_pixel_answer = SimilarPixels.solve_3x3(imageMap)
     # if similar_pixel_answer is not -1:
     #     print(problem.name, "similar pixels best answer - ", str(similar_pixel_answer))

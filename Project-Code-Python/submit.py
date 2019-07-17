@@ -49,6 +49,8 @@ def main():
     'InclusiveOr.py',
     'SimpleSubtract.py',
     'ImageTransformUtility.py',
+    'DarkPixelConjunction.py',
+    'ExclusiveOr.py',
     'utility.py'
   ])
   args = parser.parse_args()

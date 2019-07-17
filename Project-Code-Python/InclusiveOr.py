@@ -15,7 +15,6 @@ def solve_3x3_groupings(imageMap, groupings, expected_results, group_to_check):
         expected_result = imageMap.get(expected_results[i])
 
         actual_result = ImageTransformUtility.dark_pixel_inclusive_or_transform(image_1, image_2)
-        # actual_result.save('actual_result.png')
 
         similarity = calculate_image_similarity(actual_result, expected_result)
 
