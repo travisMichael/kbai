@@ -46,6 +46,11 @@ def solve(problem):
         print(problem.name, "xor best answer - ", str(exclusive_or_answer))
         return exclusive_or_answer
 
+    exclusive_or_answer = ExclusiveOr.solve_3x3(imageMap, [['A', 'D', 'G'], ['B', 'E', 'H'], ['C', 'F']])
+    if exclusive_or_answer is not -1:
+        print(problem.name, "xor best answer - ", str(exclusive_or_answer))
+        return exclusive_or_answer
+
     # no_op_answer = NoOp.solve_3x3(imageMap, pixel_ratio_map, group_1, group_2, group_3)
     # if no_op_answer is not -1:
     #     print(problem.name, "1 best answer - ", str(no_op_answer))

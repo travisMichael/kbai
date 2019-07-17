@@ -93,8 +93,10 @@ def dark_pixel_conjunction_transform(image_1, image_2):
 
 def dark_pixel_exclusive_or_transform(image_array):
     height, width = image_array[0].shape
-    new_image = np.zeros((height, width), dtype=np.uint8)
-    new_image[:] = 255
+    xor_image = np.zeros((height, width), dtype=np.uint8)
+    xor_image[:] = 255
+    same_image = np.zeros((height, width), dtype=np.uint8)
+    same_image[:] = 255
 
     for i in range(height):
         for j in range(width):
@@ -103,9 +105,11 @@ def dark_pixel_exclusive_or_transform(image_array):
                 if image_array[k][i][j] < 100:
                     dark_pixel_count += 1
             if dark_pixel_count == 1:
-                new_image[i][j] = 0
+                xor_image[i][j] = 0
+            if dark_pixel_count == len(image_array):
+                same_image[i][j] = 0
 
-    return Image.fromarray(new_image, mode="L")
+    return Image.fromarray(xor_image, mode="L"), Image.fromarray(same_image, mode="L")
 
 
 # returns a new image with the black pixels representing the similarity between 1 & 2

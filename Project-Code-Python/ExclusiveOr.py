@@ -6,9 +6,6 @@ THRESHOLD = 0.97
 
 
 def solve_3x3(imageMap, groupings):
-    #
-    # if len(groupings) != len(expected_results):
-    #     return -1
 
     image_1_1 = np.array(imageMap.get(groupings[0][0]))
     image_1_2 = np.array(imageMap.get(groupings[0][1]))
@@ -18,10 +15,10 @@ def solve_3x3(imageMap, groupings):
     image_2_2 = np.array(imageMap.get(groupings[1][1]))
     image_2_3 = np.array(imageMap.get(groupings[1][2]))
 
-    actual_result_1 = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_1_1, image_1_2, image_1_3])
-    actual_result_2 = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_2_1, image_2_2, image_2_3])
+    expected_xor, _ = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_1_1, image_1_2, image_1_3])
+    actual_result_2, _ = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_2_1, image_2_2, image_2_3])
 
-    similarity = calculate_image_similarity(actual_result_1, actual_result_2)
+    similarity = calculate_image_similarity(expected_xor, actual_result_2)
 
     if similarity < 0.95:
         return -1
@@ -29,71 +26,27 @@ def solve_3x3(imageMap, groupings):
     image_3_1 = np.array(imageMap.get(groupings[2][0]))
     image_3_2 = np.array(imageMap.get(groupings[2][1]))
 
-    image_1 = np.array(imageMap.get('1'))
-    image_2 = np.array(imageMap.get('2'))
-    image_3 = np.array(imageMap.get('3'))
-    image_4 = np.array(imageMap.get('4'))
-    image_5 = np.array(imageMap.get('5'))
-    image_6 = np.array(imageMap.get('6'))
-    image_7 = np.array(imageMap.get('7'))
-    image_8 = np.array(imageMap.get('8'))
 
     best_answer = -1
-    best_similarity = 0.9
+    best_similarity = 1.88
 
-    final_result = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_3_1, image_3_2, image_1])
-    similarity = calculate_image_similarity(actual_result_1, final_result)
+    _, expected_matching_pixels = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_3_1, image_3_2])
+    for i in range (1, 9):
+        similarity = check_answer_similarity(expected_xor, expected_matching_pixels, imageMap, str(i), image_3_1, image_3_2)
+        if similarity > best_similarity:
+            best_similarity = similarity
+            best_answer = i
 
-    if similarity > best_similarity:
-        best_similarity = similarity
-        best_answer = 1
 
-    final_result = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_3_1, image_3_2, image_2])
-    similarity = calculate_image_similarity(actual_result_1, final_result)
-
-    if similarity > best_similarity:
-        best_similarity = similarity
-        best_answer = 2
-
-    final_result = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_3_1, image_3_2, image_3])
-    similarity = calculate_image_similarity(actual_result_1, final_result)
-
-    if similarity > best_similarity:
-        best_similarity = similarity
-        best_answer = 3
-
-    final_result = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_3_1, image_3_2, image_4])
-    similarity = calculate_image_similarity(actual_result_1, final_result)
-
-    if similarity > best_similarity:
-        best_similarity = similarity
-        best_answer = 4
-
-    final_result = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_3_1, image_3_2, image_5])
-    similarity = calculate_image_similarity(actual_result_1, final_result)
-
-    if similarity > best_similarity:
-        best_similarity = similarity
-        best_answer = 5
-
-    final_result = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_3_1, image_3_2, image_6])
-    similarity = calculate_image_similarity(actual_result_1, final_result)
-
-    if similarity > best_similarity:
-        best_similarity = similarity
-        best_answer = 6
-
-    final_result = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_3_1, image_3_2, image_7])
-    similarity = calculate_image_similarity(actual_result_1, final_result)
-
-    if similarity > best_similarity:
-        best_similarity = similarity
-        best_answer = 7
-
-    final_result = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_3_1, image_3_2, image_8])
-    similarity = calculate_image_similarity(actual_result_1, final_result)
-
-    if similarity > best_similarity:
-        best_answer = 8
 
     return best_answer
+
+def check_answer_similarity(expected_xor, expected_matching_pixels, imageMap, image_label, image_3_1, image_3_2):
+
+    image = np.array(imageMap.get(image_label))
+
+    final_result, matching_pixels = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_3_1, image_3_2, image])
+    similarity_1 = calculate_image_similarity(expected_xor, final_result)
+    similarity_2 = calculate_image_similarity(matching_pixels, expected_matching_pixels)
+
+    return similarity_1 + similarity_2
