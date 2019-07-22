@@ -41,15 +41,15 @@ def solve(problem):
     group_2_2 = ['B', 'E', 'H']
     group_2_3 = ['C', 'F']
 
-    # exclusive_or_answer = ExclusiveOr.solve_3x3(imageMap, [['A', 'B', 'C'], ['D', 'E', 'F'], ['G', 'H']])
-    # if exclusive_or_answer is not -1:
-    #     print(problem.name, "1 xor best answer - ", str(exclusive_or_answer))
-    #     return exclusive_or_answer
-    #
-    # exclusive_or_answer = ExclusiveOr.solve_3x3(imageMap, [['A', 'D', 'G'], ['B', 'E', 'H'], ['C', 'F']])
-    # if exclusive_or_answer is not -1:
-    #     print(problem.name, "2 xor best answer - ", str(exclusive_or_answer))
-    #     return exclusive_or_answer
+    exclusive_or_answer = ExclusiveOr.solve_3x3(imageMap, [['A', 'B', 'C'], ['D', 'E', 'F'], ['G', 'H']])
+    if exclusive_or_answer is not -1:
+        print(problem.name, "1 xor best answer - ", str(exclusive_or_answer))
+        return exclusive_or_answer
+
+    exclusive_or_answer = ExclusiveOr.solve_3x3(imageMap, [['A', 'D', 'G'], ['B', 'E', 'H'], ['C', 'F']])
+    if exclusive_or_answer is not -1:
+        print(problem.name, "2 xor best answer - ", str(exclusive_or_answer))
+        return exclusive_or_answer
 
     exclusive_or_answer = ExclusiveOr.solve_3x3_match_only(imageMap, [['H', 'F', 'A'], ['G', 'E', 'C'], ['D', 'B']])
     if exclusive_or_answer is not -1:

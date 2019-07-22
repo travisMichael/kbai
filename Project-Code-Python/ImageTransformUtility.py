@@ -98,6 +98,8 @@ def dark_pixel_exclusive_or_transform(image_array):
     same_image = np.zeros((height, width), dtype=np.uint8)
     same_image[:] = 255
 
+    number_of_almost_matching_pixels = 0
+
     for i in range(height):
         for j in range(width):
             dark_pixel_count = 0
@@ -108,8 +110,12 @@ def dark_pixel_exclusive_or_transform(image_array):
                 xor_image[i][j] = 0
             if dark_pixel_count == len(image_array):
                 same_image[i][j] = 0
+            if len(image_array) == 3 and dark_pixel_count == 2:
+                number_of_almost_matching_pixels += 1
 
-    return Image.fromarray(xor_image, mode="L"), Image.fromarray(same_image, mode="L")
+    meta_information = {'number_of_almost_matching_pixels': number_of_almost_matching_pixels}
+
+    return Image.fromarray(xor_image, mode="L"), Image.fromarray(same_image, mode="L"), meta_information
 
 
 # returns a new image with the black pixels representing the similarity between 1 & 2

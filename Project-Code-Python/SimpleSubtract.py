@@ -46,7 +46,7 @@ def solve_3x3_exclusive_or(imageMap, groupings, expected_results, group_to_check
         image_2 = np.array(imageMap.get(groupings[i][1]))
         expected_result = imageMap.get(expected_results[i])
 
-        actual_result, _ = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_1, image_2])
+        actual_result, _, _ = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_1, image_2])
         # actual_result.save('actual_result.png')
 
         similarity = calculate_image_similarity(actual_result, expected_result)
@@ -56,7 +56,7 @@ def solve_3x3_exclusive_or(imageMap, groupings, expected_results, group_to_check
 
     image_1 = np.array(imageMap.get(group_to_check[0]))
     image_2 = np.array(imageMap.get(group_to_check[1]))
-    final_result, _ = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_1, image_2])
+    final_result, _, _ = ImageTransformUtility.dark_pixel_exclusive_or_transform([image_1, image_2])
     # final_result.save('final_result.png')
 
     similarity, best_answer = apply_and_check_3x3(final_result, imageMap)
