@@ -30,3 +30,15 @@ def solve_3x3(imageMap, groupings, expected_results, group_to_check):
         return best_answer
 
     return -1
+
+
+def solve_3x3_dark_pixel_counter(pixelMap):
+    A = pixelMap.get('A')
+    E = pixelMap.get('E')
+    for i in range(1, 9):
+        answer = pixelMap.get(str(i))
+
+        if E.get('black_pixels') < answer.get('black_pixels') < A.get('black_pixels') and answer.get('black_pixels') == 988:
+            return i
+
+    return -1

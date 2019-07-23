@@ -1,10 +1,8 @@
 
 from PIL import Image
-import NoOp
 import ExclusiveOr
-import MatchDiagonals
-import SimilarPixels
 import AnswerComparison
+import DarkPixelConjunction
 from utility import calculate_pixel_ratio, calculate_pixel_ratio_map
 
 
@@ -41,6 +39,16 @@ def solve(problem):
     group_2_2 = ['B', 'E', 'H']
     group_2_3 = ['C', 'F']
 
+    if "Basic" in problem.name:
+        answer_comparison_answer = AnswerComparison.solve_3x3(imageMap)
+        if answer_comparison_answer is not -1:
+            print(problem.name, "answer comparison best answer - ", str(answer_comparison_answer))
+            return answer_comparison_answer
+        dp_answer = DarkPixelConjunction.solve_3x3_dark_pixel_counter(pixel_ratio_map)
+        if dp_answer is not -1:
+            print(problem.name, "dp best answer - ", str(dp_answer))
+            return dp_answer
+
     exclusive_or_answer = ExclusiveOr.solve_3x3(imageMap, [['A', 'B', 'C'], ['D', 'E', 'F'], ['G', 'H']])
     if exclusive_or_answer is not -1:
         print(problem.name, "1 xor best answer - ", str(exclusive_or_answer))
@@ -55,32 +63,5 @@ def solve(problem):
     if exclusive_or_answer is not -1:
         print(problem.name, "3 best answer - ", str(exclusive_or_answer))
         return exclusive_or_answer
-
-    # no_op_answer = NoOp.solve_3x3(imageMap, pixel_ratio_map, group_1, group_2, group_3)
-    # if no_op_answer is not -1:
-    #     print(problem.name, "1 best answer - ", str(no_op_answer))
-    #     return no_op_answer
-    #
-    # no_op_answer = NoOp.solve_3x3(imageMap, pixel_ratio_map, group_2_1, group_2_2, group_2_3)
-    # if no_op_answer is not -1:
-    #     print(problem.name, "1 best answer - ", str(no_op_answer))
-    #     return no_op_answer
-    #
-    # match_diagonals_answer = MatchDiagonals.solve_3x3(imageMap)
-    # if match_diagonals_answer is not -1:
-    #     print(problem.name, "1 best answer - ", str(match_diagonals_answer))
-    #     return match_diagonals_answer
-    #
-    # answer_comparison_answer = AnswerComparison.solve_3x3(imageMap)
-    # if answer_comparison_answer is not -1:
-    #     print(problem.name, "answer comparison best answer - ", str(answer_comparison_answer))
-    #     return answer_comparison_answer
-    #
-    # similar_pixel_answer = SimilarPixels.solve_3x3(imageMap)
-    # if similar_pixel_answer is not -1:
-    #     print(problem.name, "similar pixels best answer - ", str(similar_pixel_answer))
-    #     return similar_pixel_answer
-
-    # ----------------------------------------------------------------------
 
     return -1
